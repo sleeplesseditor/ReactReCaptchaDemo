@@ -37,6 +37,8 @@ class App extends Component {
   }
 
   render() {
+    const keys = require('./config').captchaKey;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -52,7 +54,7 @@ class App extends Component {
           >Subscribe</div>
 
           <Recaptcha
-            sitekey=""
+            sitekey={keys}
             render="normal"
             onloadCallback={this.recaptchaLoaded}
             verifyCallback={this.verifyCallback}
