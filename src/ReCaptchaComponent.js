@@ -35,7 +35,7 @@ class ReCaptchaComponent extends Component {
             size="normal"
             data-theme="dark"            
             render="explicit"
-            sitekey=""
+            sitekey="6Lf0pHMUAAAAABqEiuja3L4MhTz17T17mhkeft7r"
             onloadCallback={this.onLoadRecaptcha}
             verifyCallback={this.verifyCallback}
         />

@@ -1,14 +1,39 @@
 import React, { Component } from 'react';
-import { loadReCaptcha } from 'react-recaptcha-google';
 import logo from './logo.svg';
 import './App.css';
-
-import ReCaptchaComponent from './ReCaptchaComponent';
+import Recaptcha from 'react-recaptcha';
 
 class App extends Component {
-  
-  componentDidMount() {
-    loadReCaptcha();
+  constructor(props) {
+    super(props)
+
+    this.handleSubscribe = this.handleSubscribe.bind(this);
+    this.recaptchaLoaded = this.recaptchaLoaded.bind(this);
+    this.verifyCallback = this.verifyCallback.bind(this);
+
+    this.state = {
+      isVerified: false
+    }
+  }
+
+  recaptchaLoaded() {
+    console.log('ReCaptcha Successfully Loaded');
+  }
+
+  handleSubscribe() {
+    if (this.state.isVerified) {
+      alert('You Have Successfully Subscribed!');
+    } else {
+      alert('Please Verify That You are a Human!');
+    }
+  }
+
+  verifyCallback(response) {
+    if (response) {
+      this.setState({
+        isVerified: true
+      })
+    }
   }
 
   render() {
@@ -16,20 +41,22 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <h1 className="App-title">React ReCaptcha Demo</h1>
         </header>
-        <div className="captcha_component">
-          <ReCaptchaComponent/>
+        <div className="App-intro">
+          <input type="text" placeholder="email@company.com" />
+
+          <div
+            className="convert"
+            onClick={this.handleSubscribe}
+          >Subscribe</div>
+
+          <Recaptcha
+            sitekey=""
+            render="normal"
+            onloadCallback={this.recaptchaLoaded}
+            verifyCallback={this.verifyCallback}
+          />
         </div>
       </div>
     );
